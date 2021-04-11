@@ -23,28 +23,4 @@ class CryptoExchangeProcessor(ABC):
     def PlaceOrder(self):
         pass
 
-class BinanceExchangeProcessor(CryptoExchangeProcessor):
-
-    def __init(self):
-        client = BinanceClient()
-
-    def GetServerTime(self):
-        HTTPClient.request()
-
-    def ShowCandles(self):
-        pass
-
-    def PlaceOrder(self):
-        pass
-
-class BittrexExchangeProcessor(CryptoExchangeProcessor):
-
-    def GetServerTime(self):
-        pass
-
-    def ShowCandles(self):
-        pass
-
-    def PlaceOrder(self):
-        pass
 
