@@ -18,6 +18,8 @@ class HTTPClient():
         self.args.update({'url': self.BASE_PATH + path})
         if type == HTTPClient.RequestType.GET:
             response = requests.get(**dict(self.args, params=params))
+            #Do we need params in reques.get ?
+            #response = requests.get(**dict(self.args, params=params))
         elif type == HTTPClient.RequestType.POST:
             response = requests.post(**dict(self.args, params=params, body=body))
         elif type == HTTPClient.RequestType.PUT:

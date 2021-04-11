@@ -9,7 +9,9 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
         self.client = client
 
     def get_server_time(self):
-        pass
+        self.args = self.client.args.update({'url': self.client.BASE_PATH + self.path_to_time})
+        return self.client.request(type=self.client.RequestType.GET,**self.args)
+
 
     def show_candles(self):
         pass
