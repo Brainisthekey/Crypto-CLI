@@ -1,3 +1,5 @@
+from enum import Enum
+
 from HTTPclient.binance_client import BinanceClient
 from HTTPclient.client import HTTPClient
 from abc import ABC, abstractmethod
@@ -13,7 +15,7 @@ class CryptoExchangeProcessor(ABC):
         pass
 
     @abstractmethod
-    def show_candles(self):
+    def show_candles(self, symbol: str, interval: Enum, startTime = None, endTime = None, limit: int = None):
         pass
 
     @abstractmethod

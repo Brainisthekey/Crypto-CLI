@@ -13,13 +13,10 @@ class HTTPClient():
         self.suported_codes = suported_codes
         self.BASE_PATH = BASE_PATH
         self.args = {'headers': self.headers}
-
     def request(self, type: Enum, path: str, params: dict, body: dict = None) -> requests.models.Response:
         self.args.update({'url': self.BASE_PATH + path})
         if type == HTTPClient.RequestType.GET:
             response = requests.get(**dict(self.args, params=params))
-            #Do we need params in reques.get ?
-            #response = requests.get(**dict(self.args, params=params))
         elif type == HTTPClient.RequestType.POST:
             response = requests.post(**dict(self.args, params=params, body=body))
         elif type == HTTPClient.RequestType.PUT:
