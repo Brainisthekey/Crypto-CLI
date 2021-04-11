@@ -4,23 +4,20 @@ from abc import ABC, abstractmethod
 
 class CryptoExchangeProcessor(ABC):
 
-    def __init__(self, symbol: str, price:float):
-        #In main diagram client use HTTPclient
-        #But i think logicaly user BinanceClient() but rename it
-        self.client = BinanceClient()
-        self.symbol = symbol
-        self.price = price
+    @abstractmethod
+    def __init__(self, client:HTTPClient):
+        self.client = client
 
     @abstractmethod
-    def GetServerTime(self):
+    def get_server_time(self):
         pass
 
     @abstractmethod
-    def ShowCandles(self):
+    def show_candles(self):
         pass
 
     @abstractmethod
-    def PlaceOrder(self):
+    def place_order(self):
         pass
 
 
