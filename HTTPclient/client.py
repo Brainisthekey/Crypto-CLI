@@ -23,7 +23,7 @@ class HTTPClient():
         elif type == HTTPClient.RequestType.PUT:
             response = requests.put(**dict(self.args, params=params, body=body))
         elif type == HTTPClient.RequestType.DELETE:
-            response = requests.delete(**self.args['url']['headers']['params']['body'])
+            response = requests.delete(**self.args['url'], params=params, body=body)
         elif type == HTTPClient.RequestType.PATCH:
             response = requests.put(**dict(self.args, params=params, body=body))
         else:

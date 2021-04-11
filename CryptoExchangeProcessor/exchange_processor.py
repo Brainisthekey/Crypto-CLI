@@ -1,3 +1,4 @@
+from decimal import Decimal
 from enum import Enum
 
 from HTTPclient.binance_client import BinanceClient
@@ -19,7 +20,12 @@ class CryptoExchangeProcessor(ABC):
         pass
 
     @abstractmethod
-    def place_order(self):
+    def place_order(self, symbol: str, side:Enum, type:Enum, timeInForce:Enum = None, quantity:Decimal = None,
+                    quoteOrderQty:Decimal = None, price:Decimal = None, newClientOrderId: str = None,
+                    stopPrice:Decimal = None, icebergQty:Decimal = None, newOrderRespType:Enum = None,
+                    recvWindow = None, timestamp = None):
         pass
 
-
+    #What is the type LONG ?
+    #How i can user Enum type?
+    #In get server time we don't need a params
