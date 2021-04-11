@@ -16,7 +16,8 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
     def get_server_time(self):
         self.args = self.client.args.update({'url': self.client.BASE_PATH + self.path_to_time})
         return self.client.request(type=self.client.RequestType.GET,**self.args)
-
+    #This method returns response, not candle
+    #We must rename or add return type - response.text
     def show_candles(self, symbol: str, interval: Enum, startTime = None,
                      endTime = None, limit: int = None) -> requests.models.Response:
 
