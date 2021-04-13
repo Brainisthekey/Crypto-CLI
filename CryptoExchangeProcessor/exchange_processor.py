@@ -1,6 +1,5 @@
 from decimal import Decimal
 from enum import Enum
-
 from HTTPclient.binance_client import BinanceClient
 from HTTPclient.client import HTTPClient
 from abc import ABC, abstractmethod

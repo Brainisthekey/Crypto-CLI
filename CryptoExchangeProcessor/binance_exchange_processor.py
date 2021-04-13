@@ -5,12 +5,12 @@ from exchange_processor import CryptoExchangeProcessor
 from HTTPclient.binance_client import BinanceClient
 
 class BinanceExchangeProcessor(CryptoExchangeProcessor):
+    path_to_time = '/time'
+    path_to_candle = '/klines'
+    path_to_order = '/order'
 
     def __init__(self, client=BinanceClient):
         super().__init__(client)
-        self.path_to_time = '/time'
-        self.path_to_candle = '/klines'
-        self.path_to_order = '/order'
         self.client = client
 
     def get_server_time(self):
