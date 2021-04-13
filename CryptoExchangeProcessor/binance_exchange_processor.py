@@ -11,10 +11,10 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
 
     def __init__(self, client=BinanceClient):
         super().__init__(client)
-        self.client = client
+
 
     def get_server_time(self):
-        return self.client.request(self.client.RequestType.GET, self.path_to_time)
+        return self.client.request(type=self.client.RequestType.GET, path=self.path_to_time)
 
     def show_candles(self, symbol: str, interval: Enum, startTime = None,
                      endTime = None, limit: int = None) -> requests.models.Response:
@@ -32,9 +32,7 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
                     quoteOrderQty:Decimal = None, price:Decimal = None, newClientOrderId: str = None,
                     stopPrice:Decimal = None, icebergQty:Decimal = None, newOrderRespType:Enum = None,
                     recvWindow = None, timestamp = None) -> requests.models.Response:
-        params = {
 
-        }
         body = {
             'symbol': symbol,
             'Enum': side,
@@ -52,5 +50,4 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
 
         return self.client.request(type=self.client.RequestType.POST,
                                    path=self.path_to_order,
-                                   params=params,
                                    body=body)

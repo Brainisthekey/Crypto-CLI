@@ -1,6 +1,5 @@
 from decimal import Decimal
 from enum import Enum
-from HTTPclient.binance_client import BinanceClient
 from HTTPclient.client import HTTPClient
 from abc import ABC, abstractmethod
 
@@ -22,7 +21,7 @@ class CryptoExchangeProcessor(ABC):
     def place_order(self, symbol: str, side:Enum, type:Enum, timeInForce:Enum = None, quantity:Decimal = None,
                     quoteOrderQty:Decimal = None, price:Decimal = None, newClientOrderId: str = None,
                     stopPrice:Decimal = None, icebergQty:Decimal = None, newOrderRespType:Enum = None,
-                    recvWindow = None, timestamp = None):
+                    recvWindow:int = None, timestamp:int = None):
         pass
 
     #What is the type LONG ?
