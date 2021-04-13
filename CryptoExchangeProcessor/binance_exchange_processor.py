@@ -14,8 +14,7 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
         self.client = client
 
     def get_server_time(self):
-        args = self.client.args.update({'url': self.client.BASE_PATH + self.path_to_time})
-        return self.client.request(type=self.client.RequestType.GET, path=args['url'], params=args['headers'])
+        return self.client.request(self.client.RequestType.GET, self.path_to_time)
 
     def show_candles(self, symbol: str, interval: Enum, startTime = None,
                      endTime = None, limit: int = None) -> requests.models.Response:
@@ -27,9 +26,7 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
             'endTime' : endTime,
             'limit' : limit
         }
-        params.update({'headers' : self.client.args['headers']})
-        self.args = self.client.args.update({'url': self.client.BASE_PATH + self.path_to_candle})
-        return self.client.request(type=self.client.RequestType.GET, path=self.args['url'], params=params)
+        return self.client.request(type=self.client.RequestType.GET, path=self.path_to_candle, params=params)
 
     def place_order(self, symbol: str, side:Enum, type:Enum, timeInForce:Enum = None, quantity:Decimal = None,
                     quoteOrderQty:Decimal = None, price:Decimal = None, newClientOrderId: str = None,
@@ -52,9 +49,8 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
             'recvWindow': recvWindow,
             'timestamp': timestamp,
         }
-        params['headers'] = self.client.args['headers']
-        args = self.client.args.update({'url': self.client.BASE_PATH + self.path_to_order})
+
         return self.client.request(type=self.client.RequestType.POST,
-                                   path=args['url'],
+                                   path=self.path_to_order,
                                    params=params,
                                    body=body)
