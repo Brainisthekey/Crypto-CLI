@@ -146,3 +146,5 @@ vcs.xml
 workspace.xml
 /shelf/
 /workspace.xml
+.idea/.name
+.vscode/settings.json
