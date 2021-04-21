@@ -1,7 +1,7 @@
 from decimal import Decimal
 from enum import Enum
 import requests
-from exchange_processor import CryptoExchangeProcessor
+from CryptoExchangeProcessor.exchange_processor import CryptoExchangeProcessor
 from HTTPclient.binance_client import BinanceClient
 
 class BinanceExchangeProcessor(CryptoExchangeProcessor):
@@ -26,12 +26,16 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
             'endTime' : endTime,
             'limit' : limit
         }
-        return self.client.request(type=self.client.RequestType.GET, path=self.path_to_candle, params=params)
+        return self.client.request(type=self.client.RequestType.GET,
+                                   path=self.path_to_candle,
+                                   params=params
+                                   )
 
-    def place_order(self, symbol: str, side:Enum, type:Enum, timeInForce:Enum = None, quantity:Decimal = None,
-                    quoteOrderQty:Decimal = None, price:Decimal = None, newClientOrderId: str = None,
-                    stopPrice:Decimal = None, icebergQty:Decimal = None, newOrderRespType:Enum = None,
-                    recvWindow = None, timestamp = None) -> requests.models.Response:
+    def place_order(self, symbol: str, side:Enum, type:Enum, timeInForce:Enum = None,
+                    quantity:Decimal = None, quoteOrderQty:Decimal = None, price:Decimal = None,
+                    newClientOrderId: str = None, stopPrice:Decimal = None,
+                    icebergQty:Decimal = None, newOrderRespType:Enum = None, recvWindow = None,
+                    timestamp = None) -> requests.models.Response:
 
         body = {
             'symbol': symbol,

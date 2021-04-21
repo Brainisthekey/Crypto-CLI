@@ -1,7 +1,7 @@
 from decimal import Decimal
 from enum import Enum
-from HTTPclient.client import HTTPClient
 from abc import ABC, abstractmethod
+from HTTPclient.client import HTTPClient
 
 class CryptoExchangeProcessor(ABC):
 
@@ -14,7 +14,10 @@ class CryptoExchangeProcessor(ABC):
         pass
 
     @abstractmethod
-    def show_candles(self, symbol: str, interval: Enum, startTime = None, endTime = None, limit: int = None):
+    def show_candles(
+                    self, symbol: str, interval: Enum, startTime = None,
+                    endTime = None, limit: int = None
+                    ):
         pass
 
     @abstractmethod
