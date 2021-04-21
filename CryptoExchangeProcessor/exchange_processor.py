@@ -1,50 +1,29 @@
-from HTTPclient.binance_client import BinanceClient
+from decimal import Decimal
+from enum import Enum
 from HTTPclient.client import HTTPClient
 from abc import ABC, abstractmethod
 
 class CryptoExchangeProcessor(ABC):
 
-    def __init__(self, symbol: str, price:float):
-        #In main diagram client use HTTPclient
-        #But i think logicaly user BinanceClient() but rename it
-        self.client = BinanceClient()
-        self.symbol = symbol
-        self.price = price
+    @abstractmethod
+    def __init__(self, client:HTTPClient):
+        self.client = client
 
     @abstractmethod
-    def GetServerTime(self):
+    def get_server_time(self):
         pass
 
     @abstractmethod
-    def ShowCandles(self):
+    def show_candles(self, symbol: str, interval: Enum, startTime = None, endTime = None, limit: int = None):
         pass
 
     @abstractmethod
-    def PlaceOrder(self):
+    def place_order(self, symbol: str, side:Enum, type:Enum, timeInForce:Enum = None, quantity:Decimal = None,
+                    quoteOrderQty:Decimal = None, price:Decimal = None, newClientOrderId: str = None,
+                    stopPrice:Decimal = None, icebergQty:Decimal = None, newOrderRespType:Enum = None,
+                    recvWindow:int = None, timestamp:int = None):
         pass
 
-class BinanceExchangeProcessor(CryptoExchangeProcessor):
-
-    def __init(self):
-        client = BinanceClient()
-
-    def GetServerTime(self):
-        HTTPClient.request()
-
-    def ShowCandles(self):
-        pass
-
-    def PlaceOrder(self):
-        pass
-
-class BittrexExchangeProcessor(CryptoExchangeProcessor):
-
-    def GetServerTime(self):
-        pass
-
-    def ShowCandles(self):
-        pass
-
-    def PlaceOrder(self):
-        pass
-
+    #What is the type LONG ?
+    #How i can user Enum type?
+    #In get server time we don't need a params
