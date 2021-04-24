@@ -30,7 +30,7 @@ class HTTPClient():
         elif type == HTTPClient.RequestType.DELETE:
             response = requests.delete(**self.args)
         elif type == HTTPClient.RequestType.PATCH:
-            response = requests.put(**dict(self.args, params=params, body=body))
+            response = requests.patch(**dict(self.args, params=params, body=body))
         else:
             raise BaseException
 

@@ -57,3 +57,7 @@ def test_request_patch(
                     ):
     mock_request_patch.return_value = mock.Mock(**{'status_code' : 7777})
     assert client.request(type=type, path=path, body=body, params=params) == mock_request_patch(type=type, path=path, body=body, params=params)
+
+
+
+def tes
