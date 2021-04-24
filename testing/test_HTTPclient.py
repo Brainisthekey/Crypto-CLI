@@ -1,4 +1,5 @@
 from HTTPclient.client import HTTPClient
+from HTTPclient.binance_client import BinanceClient
 import unittest
 from unittest import mock
 import pytest
@@ -59,5 +60,6 @@ def test_request_patch(
     assert client.request(type=type, path=path, body=body, params=params) == mock_request_patch(type=type, path=path, body=body, params=params)
 
 
-
-def tes
+# binance_client = BinanceClient(apiKey='', secretKey='')
+# def test_binance_client()
+#We can;t write the tests for this class, becouse we don't have any methods on it
