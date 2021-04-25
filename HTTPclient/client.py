@@ -1,6 +1,6 @@
 from enum import Enum
-import requests
 from typing import List
+import requests
 
 
 class HTTPClient():
@@ -8,13 +8,18 @@ class HTTPClient():
     headers = None
     suported_codes = None
 
-    def __init__(self, headers: dict = None, suported_codes: List[int] = None, BASE_PATH: str = None):
+    def __init__(
+                self, headers: dict = None,
+                suported_codes: List[int] = None, BASE_PATH: str = None
+                ):
         self.headers = headers
         self.suported_codes = suported_codes
         self.BASE_PATH = BASE_PATH
         self.args = {'headers': self.headers}
 
-    def request(self, type: Enum, path: str, params: dict = None, body: dict = None) -> requests.models.Response:
+    def request(
+                self, type: Enum, path: str,
+                params: dict = None, body: dict = None) -> requests.models.Response:
         self.args.update({'url': self.BASE_PATH + path})
         if type == HTTPClient.RequestType.GET:
             response = requests.get(**dict(self.args, params=params))
@@ -25,7 +30,7 @@ class HTTPClient():
         elif type == HTTPClient.RequestType.DELETE:
             response = requests.delete(**self.args)
         elif type == HTTPClient.RequestType.PATCH:
-            response = requests.put(**dict(self.args, params=params, body=body))
+            response = requests.patch(**dict(self.args, params=params, body=body))
         else:
             raise BaseException
 
@@ -35,8 +40,7 @@ class HTTPClient():
         if self.suported_codes:
             if response.status_code in self.suported_codes:
                 return response
-            else:
-                raise BaseException
+            raise BaseException
         
     class RequestType(Enum):
         GET = 'GET'
