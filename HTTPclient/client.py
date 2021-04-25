@@ -14,7 +14,7 @@ class HTTPClient():
         self.BASE_PATH = BASE_PATH
         self.args = {'headers': self.headers}
 
-    def request(self, type: Enum, path: str, params: dict, body: dict = None) -> requests.models.Response:
+    def request(self, type: Enum, path: str, params: dict = None, body: dict = None) -> requests.models.Response:
         self.args.update({'url': self.BASE_PATH + path})
         if type == HTTPClient.RequestType.GET:
             response = requests.get(**dict(self.args, params=params))
@@ -23,7 +23,7 @@ class HTTPClient():
         elif type == HTTPClient.RequestType.PUT:
             response = requests.put(**dict(self.args, params=params, body=body))
         elif type == HTTPClient.RequestType.DELETE:
-            response = requests.delete(**self.args['url']['headers']['params']['body'])
+            response = requests.delete(**self.args)
         elif type == HTTPClient.RequestType.PATCH:
             response = requests.put(**dict(self.args, params=params, body=body))
         else:
