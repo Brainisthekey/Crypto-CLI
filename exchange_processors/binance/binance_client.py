@@ -1,4 +1,4 @@
-from HTTPclient.client import HTTPClient
+from http_client.client import HTTPClient
 
 
 class BinanceClient(HTTPClient):

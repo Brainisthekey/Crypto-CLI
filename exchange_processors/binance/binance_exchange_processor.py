@@ -1,8 +1,8 @@
 from decimal import Decimal
 from enum import Enum
 import requests
-from CryptoExchangeProcessor.exchange_processor import CryptoExchangeProcessor
-from HTTPclient.binance_client import BinanceClient
+from exchange_processors.main_client import CryptoExchangeProcessor
+from exchange_processors.binance.binance_client import BinanceClient
 
 
 class BinanceExchangeProcessor(CryptoExchangeProcessor):

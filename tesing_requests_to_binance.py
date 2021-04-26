@@ -27,4 +27,4 @@ print(signature)
 request_url += querystring + "&signature=" + signature
 
 response = requests.get(request_url, headers={"X-MBX-APIKEY": apiKey})
-print(r.json()[30])
+print(r.json()[5])
