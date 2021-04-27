@@ -65,8 +65,8 @@ class BitfinexExchangeProcessor(CryptoExchangeProcessor):
                                 type=self.client.RequestType.POST, 
                                 path=self.path_to_order,
         )
-api_key = '9VJLKBW3ubIksjd96zdYPBeNV46kTuY9O6cjVzVtoLy'
-api_secret = 'L7yiqJjO3d5J1iRqxb6hY8FVHyKR3BrhfAKka2CFE3W'
+api_key = ''
+api_secret = ''
 
 client = BitfinexExchangeProcessor(client=BitfinexClient(
                                                         apiKey=api_key,

@@ -23,15 +23,6 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
         self.client = client
         super().__init__(client)
 
-    def get_signature(self, params):
-        #Что то нужно придумать, ибо так обращаться к переменной
-        #И для этого специально её инициализировать в BinanceClient такое себе
-        signature = hmac.new(
-            (self.client.secretKey).encode("utf-8"), 
-            urlencode(params).encode("utf-8"), 
-            hashlib.sha256).hexdigest()
-        return signature
-
     def show_candles(
                 self,
                 symbol: str,
@@ -83,7 +74,7 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
            "recvWindow": recvWindow,
             "timestamp": self.timestamp,
         }
-        data['signature'] = self.get_signature(params={key : val for (key, val) in data.items() if data[key] is not None})
+        data['signature'] = self.client.get_signature(params={key : val for (key, val) in data.items() if data[key] is not None})
         return self.client.request(
             type=self.client.RequestType.POST, path=self.path_to_order, data=data
         )
@@ -91,13 +82,13 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
     def get_account(self) -> requests.models.Response:
     
         params = {"timestamp": self.timestamp}
-        params['signature'] = self.get_signature(params)
+        params['signature'] = self.client.get_signature(params)
         return self.client.request(
             type=self.client.RequestType.GET, path=self.path_to_account, params=params
         )
 
-api_key = '7wIVSwRr656l2K1bxt9JML7SBAt61Y1Vx96w8TULoicc3u0TczZz1SWXzHZUC467'
-secret_key = '0F5qtVFgc4sbHwBa76ECgI54zEtXWXaUGyv5lvQ3wJReftzfgE5ymGTy88q5DCxa'
+api_key = ''
+secret_key = ''
 
 client = BinanceExchangeProcessor(client=BinanceClient(
                                                         apiKey=api_key,
