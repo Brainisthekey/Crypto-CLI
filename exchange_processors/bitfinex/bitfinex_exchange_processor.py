@@ -23,25 +23,13 @@ class BitfinexExchangeProcessor(CryptoExchangeProcessor):
         self.client = client
         super().__init__(client)
 
-    def get_signature(self, data):
-
-        signature = hmac.new(
-            self.client.secretKey.encode(), data, hashlib.sha384).hexdigest()
-        return signature
-    
-    def update_headers(self, params):
-
-        data = base64.b64encode(json.dumps(params).encode())
-        self.client.args['headers']['X-BFX-SIGNATURE'] = self.get_signature(data=data)
-        self.client.args['headers']['X-BFX-PAYLOAD'] = data
-
     def get_account(self):
 
         params = {
                 'nonce' : self.nonce,
                 'request' : self.path_to_info
         }
-        self.update_headers(params=params)
+        self.client.update_headers(params=params)
         return self.client.request(
                                 type=self.client.RequestType.POST, 
                                 path=self.path_to_info
@@ -72,7 +60,7 @@ class BitfinexExchangeProcessor(CryptoExchangeProcessor):
                 'price' : price
                 #'price' : str(price)
         }
-        self.update_headers(params=params)
+        self.client.update_headers(params=params)
         return self.client.request(
                                 type=self.client.RequestType.POST, 
                                 path=self.path_to_order,
