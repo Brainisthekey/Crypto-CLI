@@ -42,6 +42,14 @@ class CryptoExchangeProcessor(ABC):
         timestamp: int = None,
     ):
         pass
+    @abstractmethod
+    def get_account(
+        self,
+        timestamp,
+        recvWindow=None
+    ):
+        pass
+
 
     # What is the type LONG ?
     # How i can user Enum type?

@@ -1,17 +1,34 @@
 from decimal import Decimal
 from enum import Enum
 import requests
-from exchange_processors.main_client import CryptoExchangeProcessor
+import hmac
+import hashlib
+import time
+from urllib.parse import urlencode
 from exchange_processors.binance.binance_client import BinanceClient
+from exchange_processors.main_client import CryptoExchangeProcessor
 
+timestamp = int(time.time() * 1000)
 
 class BinanceExchangeProcessor(CryptoExchangeProcessor):
+
     path_to_time = "/time"
     path_to_candle = "/klines"
     path_to_order = "/order"
+    path_to_account = "/account"
 
-    def __init__(self, client=BinanceClient):
+    def __init__(self, client: BinanceClient):
+        self.client = client
         super().__init__(client)
+
+    def get_signature(self, params):
+
+        signature = hmac.new(
+            (self.client.secretKey).encode("utf-8"), 
+            urlencode(params).encode("utf-8"), 
+            hashlib.sha256
+        ).hexdigest()
+        return signature
 
     def get_server_time(self):
         return self.client.request(
@@ -73,3 +90,25 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
         return self.client.request(
             type=self.client.RequestType.POST, path=self.path_to_order, body=body
         )
+
+    def get_account(
+        self,
+        timestamp,
+        recvWindow=None
+    )-> requests.models.Response:
+    
+        params = {"timestamp": timestamp}
+        params['signature'] = self.get_signature(params)
+        return self.client.request(
+            type=self.client.RequestType.GET, path=self.path_to_account, params=params
+        )
+
+api_key = '7wIVSwRr656l2K1bxt9JML7SBAt61Y1Vx96w8TULoicc3u0TczZz1SWXzHZUC467'
+secret_key = '0F5qtVFgc4sbHwBa76ECgI54zEtXWXaUGyv5lvQ3wJReftzfgE5ymGTy88q5DCxa'
+
+clientt = BinanceExchangeProcessor(client=BinanceClient(
+                                                        apiKey=api_key,
+                                                        secretKey=secret_key,
+                                                        suported_code=[200]
+))
+print(clientt.get_account(timestamp=timestamp).json())

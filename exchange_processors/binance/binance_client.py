@@ -1,4 +1,6 @@
 from http_client.client import HTTPClient
+import os
+
 
 
 class BinanceClient(HTTPClient):
@@ -6,9 +8,12 @@ class BinanceClient(HTTPClient):
         self,
         apiKey: str = None,
         secretKey: str = None,
-        BASE_PATH: str = "https://api.binance.com/api/v3/",
+        BASE_PATH: str = "https://api.binance.com/api/v3",
+        suported_code = None
     ):
-
+        self.secretKey=secretKey
         super().__init__(
-            headers={"apiKey": apiKey, "secretKey": secretKey}, BASE_PATH=BASE_PATH
+            headers={"X-MBX-APIKEY": apiKey}, 
+            BASE_PATH=BASE_PATH,
+            suported_codes=suported_code
         )
