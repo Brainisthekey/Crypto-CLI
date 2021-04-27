@@ -1,5 +1,4 @@
 from http_client.client import HTTPClient
-import os
 
 
 
