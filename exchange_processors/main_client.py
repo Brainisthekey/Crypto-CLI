@@ -2,6 +2,7 @@ from decimal import Decimal
 from enum import Enum
 from abc import ABC, abstractmethod
 from http_client.client import HTTPClient
+from exchange_processors.models import ShowCandles
 
 
 class CryptoExchangeProcessor(ABC):
@@ -12,13 +13,13 @@ class CryptoExchangeProcessor(ABC):
     @abstractmethod
     def show_candles(
                 self,
-                symbol: str,
-                interval: Enum = None,
-                startTime=None,
-                endTime=None,
-                limit: int = None,
+                symbol,
+                interval
+                # startTime=None,
+                # endTime=None,
+                # limit: int = None,
     ):
-        pass
+        return ShowCandles(symbol=symbol, interval=interval)
 
     @abstractmethod
     def place_order(

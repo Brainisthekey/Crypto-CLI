@@ -73,6 +73,6 @@ client = BitfinexExchangeProcessor(client=BitfinexClient(
                                                         secretKey=api_secret,
                                                         suported_codes=[200, 400])
 )
-#print(client.get_account().text)
-#print(client.show_candles(symbol='btcusd').text)
-#print(client.place_order(symbol='btcusd', side='buy', amount='0.3', price='1000', type='market').text)
+print(client.get_account().text)
+print(client.show_candles(symbol='btcusd').text)
+print(client.place_order(symbol='btcusd', side='buy', amount='0.3', price='1000', type='market').text)

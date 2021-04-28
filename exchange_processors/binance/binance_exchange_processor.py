@@ -95,6 +95,6 @@ client = BinanceExchangeProcessor(client=BinanceClient(
                                                         secretKey=secret_key,
                                                         suported_code=[200, 400]
 ))
-#print(client.get_account().json())
-#print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity='0.3').json())
-#print(client.show_candles(symbol='BTCUSDT', interval='1h').json())
+print(client.get_account().json())
+print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity='0.3').json())
+print(client.show_candles(symbol='BTCUSDT', interval='1h').json())

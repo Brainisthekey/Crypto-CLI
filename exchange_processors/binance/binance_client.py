@@ -2,6 +2,7 @@ from http_client.client import HTTPClient
 import hmac
 from urllib.parse import urlencode
 import hashlib
+
 class BinanceClient(HTTPClient):
     def __init__(
         self,
