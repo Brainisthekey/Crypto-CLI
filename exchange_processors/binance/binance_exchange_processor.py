@@ -1,14 +1,10 @@
 from decimal import Decimal
 from enum import Enum
-from typing import DefaultDict
+from exchange_processors.models import ShowCandles
 import requests
-import hmac
-import hashlib
 import time
-from urllib.parse import urlencode
 from exchange_processors.binance.binance_client import BinanceClient
 from exchange_processors.main_client import CryptoExchangeProcessor
-from collections import defaultdict
 
 
 
@@ -39,9 +35,11 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
             "endTime": endTime,
             "limit": limit,
         }
-        return self.client.request(
+        ticker = self.client.request(
             type=self.client.RequestType.GET, path=self.path_to_candle, params=params
         )
+        price = ticker.json()[-1][1]
+        return ShowCandles(symbol=symbol, price=price)
 
     def place_order(
                 self,
@@ -83,7 +81,7 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
     
         params = {"timestamp": self.timestamp}
         params['signature'] = self.client.get_signature(params)
-        return self.client.request(
+        return  self.client.request(
             type=self.client.RequestType.GET, path=self.path_to_account, params=params
         )
 
@@ -95,6 +93,8 @@ client = BinanceExchangeProcessor(client=BinanceClient(
                                                         secretKey=secret_key,
                                                         suported_code=[200, 400]
 ))
-print(client.get_account().json())
-print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity='0.3').json())
-print(client.show_candles(symbol='BTCUSDT', interval='1h').json())
+#print(client.get_account().json())
+#print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity='0.3').json())
+
+#print(client.show_candles(symbol='BTCUSDT', interval='1h').json()[-1])
+print(client.show_candles(symbol='BTCUSDT', interval='1h'))

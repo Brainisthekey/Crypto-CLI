@@ -13,13 +13,13 @@ class CryptoExchangeProcessor(ABC):
     @abstractmethod
     def show_candles(
                 self,
-                symbol,
-                interval
+                symbol: str,
+                interval,
                 # startTime=None,
                 # endTime=None,
                 # limit: int = None,
-    ):
-        return ShowCandles(symbol=symbol, interval=interval)
+    ) -> ShowCandles:
+        pass
 
     @abstractmethod
     def place_order(
@@ -47,8 +47,3 @@ class CryptoExchangeProcessor(ABC):
                 recvWindow=None,
     ):
         pass
-
-
-    # What is the type LONG ?
-    # How i can user Enum type?
-    # In get server time we don't need a params

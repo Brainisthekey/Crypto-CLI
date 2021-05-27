@@ -2,4 +2,7 @@ from pydantic import BaseModel
 
 class ShowCandles(BaseModel):
     symbol : str
-    interval : str
+    price : str
+
+class GetAccount(BaseModel):
+    pass

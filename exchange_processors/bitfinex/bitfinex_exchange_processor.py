@@ -1,5 +1,6 @@
 from decimal import Decimal
 from enum import Enum
+from exchange_processors.models import ShowCandles
 import requests
 import hmac
 import hashlib
@@ -36,10 +37,12 @@ class BitfinexExchangeProcessor(CryptoExchangeProcessor):
         )
     def show_candles(self, symbol):
 
-        return self.client.request(
+        ticker = self.client.request(
                                 type=self.client.RequestType.GET, 
                                 path=self.path_to_ticker + f'/{symbol}',
         )
+        price = ticker.json()['last_price']
+        return ShowCandles(symbol=symbol, price=price)
     
     def place_order(
                 self,
@@ -73,6 +76,6 @@ client = BitfinexExchangeProcessor(client=BitfinexClient(
                                                         secretKey=api_secret,
                                                         suported_codes=[200, 400])
 )
-print(client.get_account().text)
-print(client.show_candles(symbol='btcusd').text)
-print(client.place_order(symbol='btcusd', side='buy', amount='0.3', price='1000', type='market').text)
+#print(client.get_account().text)
+print(client.show_candles(symbol='btcusd'))
+#print(client.place_order(symbol='btcusd', side='buy', amount='0.3', price='1000', type='market').text)
