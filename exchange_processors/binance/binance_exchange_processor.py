@@ -26,7 +26,7 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
                 startTime=None,
                 endTime=None,
                 limit: int = None,
-    ) -> requests.models.Response:
+    ) -> ShowCandles:
 
         params = {
             "symbol": symbol,
@@ -61,15 +61,15 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
             "symbol": symbol,
             "side": side,
             "type" : type,
-           "timeInForce": timeInForce,
+            "timeInForce": timeInForce,
             "quantity": quantity,
             "price": price,
-           "quoteOrderQty": quoteOrderQty,
-           "newClientOrderId": newClientOrderId,
-           "stopPrice": stopPrice,
-           "icebergQty": icebergQty,
-           "newOrderRespType": newOrderRespType,
-           "recvWindow": recvWindow,
+            "quoteOrderQty": quoteOrderQty,
+            "newClientOrderId": newClientOrderId,
+            "stopPrice": stopPrice,
+            "icebergQty": icebergQty,
+            "newOrderRespType": newOrderRespType,
+            "recvWindow": recvWindow,
             "timestamp": self.timestamp,
         }
         data['signature'] = self.client.get_signature(params={key : val for (key, val) in data.items() if data[key] is not None})
