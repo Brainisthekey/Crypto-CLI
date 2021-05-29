@@ -7,16 +7,15 @@ from exchange_processors.binance.binance_client import BinanceClient
 from exchange_processors.main_client import CryptoExchangeProcessor
 
 
-
 class BinanceExchangeProcessor(CryptoExchangeProcessor):
 
-    timestamp = int(time.time() * 1000)
     path_to_candle = "/klines"
     path_to_order = "/order"
     path_to_account = "/account"
 
     def __init__(self, client: BinanceClient):
         self.client = client
+        self.timestamp = int(time.time() * 1000)
         super().__init__(client)
 
     def show_candles(
@@ -85,16 +84,16 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
             type=self.client.RequestType.GET, path=self.path_to_account, params=params
         )
 
-api_key = ''
-secret_key = ''
-
-client = BinanceExchangeProcessor(client=BinanceClient(
-                                                        apiKey=api_key,
-                                                        secretKey=secret_key,
-                                                        suported_code=[200, 400]
-))
+# api_key = ''
+# secret_key = ''
+#
+# client = BinanceExchangeProcessor(client=BinanceClient(
+#                                                         apiKey=api_key,
+#                                                         secretKey=secret_key,
+#                                                         suported_codes=[200, 400]
+# ))
 #print(client.get_account().json())
 #print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity='0.3').json())
 
 #print(client.show_candles(symbol='BTCUSDT', interval='1h').json()[-1])
-print(client.show_candles(symbol='BTCUSDT', interval='1h'))
+#print(client.show_candles(symbol='BTCUSDT', interval='1h'))
