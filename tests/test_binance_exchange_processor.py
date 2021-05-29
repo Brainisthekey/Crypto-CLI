@@ -20,4 +20,3 @@ class BinanceExchProcessorTest(unittest.TestCase):
         assert client_binance.__getattribute__('timestamp') == 0
         #Question there
 
-    def
