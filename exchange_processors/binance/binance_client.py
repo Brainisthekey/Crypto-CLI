@@ -9,13 +9,13 @@ class BinanceClient(HTTPClient):
         apiKey: str = None,
         secretKey: str = None,
         BASE_PATH: str = "https://api.binance.com/api/v3",
-        suported_code = None
+        suported_codes = None
     ):
         self.secretKey=secretKey
         super().__init__(
             headers={"X-MBX-APIKEY": apiKey}, 
             BASE_PATH=BASE_PATH,
-            suported_codes=suported_code
+            suported_codes=suported_codes
         )
 
     def get_signature(self, params):
