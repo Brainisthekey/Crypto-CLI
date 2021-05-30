@@ -1,7 +1,9 @@
+import json
 import unittest
 from unittest import mock
 from unittest.mock import patch
 
+from exchange_processors.models import ShowCandles
 from exchange_processors.binance.binance_exchange_processor import BinanceExchangeProcessor
 from exchange_processors.binance.binance_client import BinanceClient
 
@@ -37,4 +39,19 @@ class BinanceExchProcessorTest(unittest.TestCase):
         ))
         assert client_binance.__getattribute__('timestamp') == 0
         assert client_binance.get_account() == binance_get_account
+
+    @mock.patch('exchange_processors.models.ShowCandles')
+    @mock.patch('http_client.client.HTTPClient.request')
+    def test_show_candles(self, mock_request, mock_models):
+        return_value = {'symbol': 'BTCUSDT', 'price': '33849.25000000'}
+        symbol = 'BTCUSDT'
+        interval = '1h'
+        client_binance = BinanceExchangeProcessor(client=BinanceClient(
+            apiKey='test_api_key',
+            secretKey='test_secret_key',
+            suported_codes=[200, 400]
+        ))
+        mock_request.json.return_value = '33849.25000000'
+        mock_models.return_value = '?????'
+        assert client_binance.show_candles(symbol=symbol, interval=interval).__dict__ == return_value
 
