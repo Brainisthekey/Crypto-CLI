@@ -1,4 +1,3 @@
-import hmac
 from http_client.client import HTTPClient
 import hmac
 import hashlib
@@ -36,3 +35,4 @@ class BitfinexClient(HTTPClient):
         data = base64.b64encode(json.dumps(params).encode())
         self.args['headers']['X-BFX-SIGNATURE'] = self.get_signature(data=data)
         self.args['headers']['X-BFX-PAYLOAD'] = data
+

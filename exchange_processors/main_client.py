@@ -14,10 +14,7 @@ class CryptoExchangeProcessor(ABC):
     def show_candles(
                 self,
                 symbol: str,
-                interval,
-                # startTime=None,
-                # endTime=None,
-                # limit: int = None,
+                interval: str = None,
     ) -> ShowCandles:
         pass
 
@@ -25,19 +22,10 @@ class CryptoExchangeProcessor(ABC):
     def place_order(
                 self,
                 symbol: str,
-                side,
-                amount:float = None,
-                type = None,
-                timeInForce: Enum = None,
-                quantity: Decimal = None,
-                quoteOrderQty: Decimal = None,
-                price: Decimal = None,
-                newClientOrderId: str = None,
-                stopPrice: Decimal = None,
-                icebergQty: Decimal = None,
-                newOrderRespType: Enum = None,
-                recvWindow: int = None,
-                timestamp: int = None,
+                side: str,
+                type: str,
+                quantity: float,
+                price: float,
     ):
         pass
     @abstractmethod
@@ -46,4 +34,4 @@ class CryptoExchangeProcessor(ABC):
                 timestamp=None,
                 recvWindow=None,
     ):
-        return True
+        pass

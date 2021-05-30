@@ -59,7 +59,7 @@ class BinanceExchProcessorTest(unittest.TestCase):
 
     @mock.patch('http_client.client.HTTPClient.request')
     def test_show_candles(self, mock_request):
-        return_value = {'symbol': 'BTCUSDT', 'price': '35734.95000000'}
+        return_value = {'symbol': 'BTCUSDT', 'price': '35734.9'}
         symbol = 'BTCUSDT'
         interval = '1h'
         client_binance = BinanceExchangeProcessor(client=BinanceClient(

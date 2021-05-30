@@ -21,54 +21,34 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
     def show_candles(
                 self,
                 symbol: str,
-                interval = Enum,
-                startTime=None,
-                endTime=None,
-                limit: int = None,
+                interval = Enum
     ) -> ShowCandles:
 
         params = {
             "symbol": symbol,
             "interval": interval,
-            "startTime": startTime,
-            "endTime": endTime,
-            "limit": limit,
         }
         ticker = self.client.request(
             type=self.client.RequestType.GET, path=self.path_to_candle, params=params
         )
         price = ticker.json()[-1][1]
-        return ShowCandles(symbol=symbol, price=price)
+        return ShowCandles(symbol=symbol, price=round(float(price), 1))
 
     def place_order(
                 self,
                 symbol: str,
                 side = None,
                 type = None,
-                timeInForce: Enum = None,
                 quantity: Decimal = None,
-                quoteOrderQty: Decimal = None,
                 price: Decimal = None,
-                newClientOrderId: str = None,
-                stopPrice: Decimal = None,
-                icebergQty: Decimal = None,
-                newOrderRespType: Enum = None,
-                recvWindow=None,
     ) -> requests.models.Response:
 
         data = {
             "symbol": symbol,
             "side": side,
             "type" : type,
-            "timeInForce": timeInForce,
             "quantity": quantity,
             "price": price,
-            "quoteOrderQty": quoteOrderQty,
-            "newClientOrderId": newClientOrderId,
-            "stopPrice": stopPrice,
-            "icebergQty": icebergQty,
-            "newOrderRespType": newOrderRespType,
-            "recvWindow": recvWindow,
             "timestamp": self.timestamp,
         }
         data['signature'] = self.client.get_signature(params={key : val for (key, val) in data.items() if data[key] is not None})
@@ -92,11 +72,7 @@ client = BinanceExchangeProcessor(client=BinanceClient(
                                                         secretKey=secret_key,
                                                         suported_codes=[200, 400, 401]
 ))
-print(client.get_account().json())
+
+#print(client.get_account().json())
 #print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity=Decimal('0.3')).json())
-
-#print(client.show_candles(symbol='BTCUSDT', interval='1h').json()[-1])
-
-# print((client.show_candles(symbol='BTCUSDT', interval='1h')))
-# a = client.show_candles(symbol='BTCUSDT', interval='1h')
-# print(a.dict())
+#print(client.show_candles(symbol='BTCUSDT', interval='1h').dict())
