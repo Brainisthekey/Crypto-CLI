@@ -80,19 +80,19 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
     
         params = {"timestamp": self.timestamp}
         params['signature'] = self.client.get_signature(params)
-        return  self.client.request(
+        return self.client.request(
             type=self.client.RequestType.GET, path=self.path_to_account, params=params
         )
 
-# api_key = ''
-# secret_key = ''
-#
-# client = BinanceExchangeProcessor(client=BinanceClient(
-#                                                         apiKey=api_key,
-#                                                         secretKey=secret_key,
-#                                                         suported_codes=[200, 400]
-# ))
-#print(client.get_account().json())
+api_key = ''
+secret_key = ''
+
+client = BinanceExchangeProcessor(client=BinanceClient(
+                                                        apiKey=api_key,
+                                                        secretKey=secret_key,
+                                                        suported_codes=[200, 400]
+))
+print(hasattr(client.get_account(), 'params'))
 #print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity='0.3').json())
 
 #print(client.show_candles(symbol='BTCUSDT', interval='1h').json()[-1])
