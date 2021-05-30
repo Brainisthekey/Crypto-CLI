@@ -2,7 +2,8 @@ from exchange_processors.main_client import CryptoExchangeProcessor
 
 
 class BittrexExchangeProcessor(CryptoExchangeProcessor):
-    def get_server_time(self):
+
+    def get_account(self):
         pass
 
     def show_candles(self):

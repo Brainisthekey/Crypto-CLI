@@ -90,10 +90,13 @@ secret_key = ''
 client = BinanceExchangeProcessor(client=BinanceClient(
                                                         apiKey=api_key,
                                                         secretKey=secret_key,
-                                                        suported_codes=[200, 400]
+                                                        suported_codes=[200, 400, 401]
 ))
-print(hasattr(client.get_account(), 'params'))
-#print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity='0.3').json())
+print(client.get_account().json())
+#print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity=Decimal('0.3')).json())
 
 #print(client.show_candles(symbol='BTCUSDT', interval='1h').json()[-1])
-#print(client.show_candles(symbol='BTCUSDT', interval='1h'))
+
+# print((client.show_candles(symbol='BTCUSDT', interval='1h')))
+# a = client.show_candles(symbol='BTCUSDT', interval='1h')
+# print(a.dict())

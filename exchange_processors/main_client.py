@@ -46,4 +46,4 @@ class CryptoExchangeProcessor(ABC):
                 timestamp=None,
                 recvWindow=None,
     ):
-        pass
+        return True
