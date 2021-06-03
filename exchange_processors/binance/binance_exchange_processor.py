@@ -1,5 +1,7 @@
 from decimal import Decimal
 from enum import Enum
+
+from _pytest.monkeypatch import K
 from exchange_processors.models import GetAccount, ShowCandles
 import requests
 import time
@@ -56,14 +58,18 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
             type=self.client.RequestType.POST, path=self.path_to_order, data=data
         )
 
-    def get_account(self) -> requests.models.Response:
-    
+    def get_account(self) -> GetAccount:
+        balances_binance = {}
         params = {"timestamp": self.timestamp}
         params['signature'] = self.client.get_signature(params)
         get_account_response_json = self.client.request(
             type=self.client.RequestType.GET, path=self.path_to_account, params=params
         ).json()
-        return GetAccount(amount = get_account_response_json['amount'] ) 
+        for balances in get_account_response_json['balances']:
+            for key, val in balances.items():
+                if key == 'free' and val != '0.00000000' and val != '0.00':
+                    balances_binance[balances['asset']] = balances['free']
+        return GetAccount(balances = balances_binance) 
 
 api_key = ''
 secret_key = ''
@@ -74,6 +80,6 @@ client = BinanceExchangeProcessor(client=BinanceClient(
                                                         suported_codes=[200, 400, 401]
 ))
 
-#print(client.get_account().json())
+#print(client.get_account())
 #print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity=Decimal('0.3')).json())
 #print(client.show_candles(symbol='BTCUSDT', interval='1h').dict())

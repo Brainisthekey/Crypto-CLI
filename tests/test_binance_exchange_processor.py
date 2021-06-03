@@ -1,3 +1,4 @@
+from exchange_processors.models import GetAccount
 import unittest
 from decimal import Decimal
 from unittest import mock
@@ -20,7 +21,6 @@ class BinanceExchProcessorTest(unittest.TestCase):
         assert hasattr(client_binance, 'path_to_order') == True
         assert hasattr(client_binance, 'path_to_account') == True
         assert client_binance.__getattribute__('timestamp') == 0
-        # Question there
 
     @mock.patch('http_client.client.HTTPClient.request')
     @mock.patch('exchange_processors.binance.binance_client.BinanceClient.get_signature')
@@ -40,22 +40,23 @@ class BinanceExchProcessorTest(unittest.TestCase):
                }
         )
         mock_request.return_value = mock_response
-        assert client_binance.get_account().json() == json_get_account_200
+        assert client_binance.get_account() == GetAccount(balances={'BNB': '0.00024951'})
         mock_response = mock.Mock(
             **{'status_code': 400,
                'json.return_value': json_get_account_400
                }
         )
         mock_request.return_value = mock_response
-        assert client_binance.get_account().json() == json_get_account_400
+        with self.assertRaises(KeyError):
+            client_binance.get_account()
         mock_response = mock.Mock(
             **{'status_code': 401,
                'json.return_value': json_get_account_401
                }
         )
         mock_request.return_value = mock_response
-        assert client_binance.get_account().json() == json_get_account_401
-
+        with self.assertRaises(KeyError):
+            client_binance.get_account()
 
     @mock.patch('http_client.client.HTTPClient.request')
     def test_show_candles(self, mock_request):
