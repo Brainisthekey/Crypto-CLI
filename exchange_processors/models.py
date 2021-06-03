@@ -5,5 +5,6 @@ class ShowCandles(BaseModel):
     price : str
 class PlaceOrder(BaseModel):
     pass
+
 class GetAccount(BaseModel):
-    pass
+    amount: float

@@ -1,6 +1,6 @@
 from decimal import Decimal
 from enum import Enum
-from exchange_processors.models import ShowCandles
+from exchange_processors.models import GetAccount, ShowCandles
 import requests
 import time
 from exchange_processors.binance.binance_client import BinanceClient
@@ -60,9 +60,10 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
     
         params = {"timestamp": self.timestamp}
         params['signature'] = self.client.get_signature(params)
-        return self.client.request(
+        get_account_response_json = self.client.request(
             type=self.client.RequestType.GET, path=self.path_to_account, params=params
-        )
+        ).json()
+        return GetAccount(amount = get_account_response_json['amount'] ) 
 
 api_key = ''
 secret_key = ''
