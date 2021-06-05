@@ -1,12 +1,10 @@
 from decimal import Decimal
 from enum import Enum
-
-from _pytest.monkeypatch import K
-from exchange_processors.models import GetAccount, ShowCandles
+from src.exchange_processors.models import GetAccount, ShowCandles
 import requests
 import time
-from exchange_processors.binance.binance_client import BinanceClient
-from exchange_processors.main_client import CryptoExchangeProcessor
+from src.clients.binance_main_client.binance_client import BinanceClient
+from src.exchange_processors.exchange_processor import CryptoExchangeProcessor
 
 
 class BinanceExchangeProcessor(CryptoExchangeProcessor):
@@ -67,12 +65,13 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
         ).json()
         for balances in get_account_response_json['balances']:
             for key, val in balances.items():
+                # not in tuple(....)
                 if key == 'free' and val != '0.00000000' and val != '0.00':
                     balances_binance[balances['asset']] = balances['free']
         return GetAccount(balances = balances_binance) 
 
-api_key = ''
-secret_key = ''
+api_key = '7wIVSwRr656l2K1bxt9JML7SBAt61Y1Vx96w8TULoicc3u0TczZz1SWXzHZUC467'
+secret_key = '0F5qtVFgc4sbHwBa76ECgI54zEtXWXaUGyv5lvQ3wJReftzfgE5ymGTy88q5DCxa'
 
 client = BinanceExchangeProcessor(client=BinanceClient(
                                                         apiKey=api_key,
@@ -80,6 +79,6 @@ client = BinanceExchangeProcessor(client=BinanceClient(
                                                         suported_codes=[200, 400, 401]
 ))
 
-#print(client.get_account())
+print(client.get_account())
 #print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity=Decimal('0.3')).json())
 #print(client.show_candles(symbol='BTCUSDT', interval='1h').dict())

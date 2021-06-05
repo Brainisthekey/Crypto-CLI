@@ -1,11 +1,10 @@
-from http_client.client import HTTPClient
-import unittest
+from src.clients.http_client import HTTPClient
 from unittest import mock
 
 
 client = HTTPClient(BASE_PATH="https://api.binance.com/api/v3/", suported_codes=[7777])
 
-@mock.patch("http_client.client.requests.get")
+@mock.patch("src.clients.http_client.requests.get")
 def test_request_get(mock_request_get, type=HTTPClient.RequestType.GET, path=""):
     mock_request_get.return_value = mock.Mock(**{"status_code": 7777})
     assert client.request(type=type, path=path) == mock_request_get(
@@ -13,7 +12,7 @@ def test_request_get(mock_request_get, type=HTTPClient.RequestType.GET, path="")
     )
 
 
-@mock.patch("http_client.client.requests.post")
+@mock.patch("src.clients.http_client.requests.post")
 def test_request_post(
     mock_request_post, type=HTTPClient.RequestType.POST, path="", body={}, params={}
 ):
@@ -23,7 +22,7 @@ def test_request_post(
     ) == mock_request_post(type=type, path=path, body=body, params=params)
 
 
-@mock.patch("http_client.client.requests.put")
+@mock.patch("src.clients.http_client.requests.put")
 def test_request_put(
     mock_request_put, type=HTTPClient.RequestType.PUT, path="", body={}, params={}
 ):
@@ -33,7 +32,7 @@ def test_request_put(
     ) == mock_request_put(type=type, path=path, body=body, params=params)
 
 
-@mock.patch("http_client.client.requests.delete")
+@mock.patch("src.clients.http_client.requests.delete")
 def test_request_delete(
     mock_request_delete, type=HTTPClient.RequestType.DELETE, path=""
 ):
@@ -43,7 +42,7 @@ def test_request_delete(
     )
 
 
-@mock.patch("http_client.client.requests.patch")
+@mock.patch("src.clients.http_client.requests.patch")
 def test_request_patch(
     mock_request_patch, type=HTTPClient.RequestType.PATCH, path="", body={}, params={}
 ):

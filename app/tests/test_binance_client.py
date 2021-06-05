@@ -1,4 +1,4 @@
-from exchange_processors.binance.binance_client import BinanceClient
+from src.clients.binance_main_client.binance_client import BinanceClient
 
 def test_binance_client():
     client = BinanceClient(
@@ -15,7 +15,7 @@ def test_binance_client():
 def test_get_signature():
     secretKey = 'test_signature'
     client = BinanceClient(secretKey=secretKey)
-    return_value = '3f9168044ce99b6e1e6544c7e148626a4454b54a67675b8bf14e684916a57ee7'
+    return_value = '3f9168044ce99b6e1e6544c7e148626a4454b54a67675bbf14e684916a57ee7'
     assert client.get_signature({"test_signature": "777"}) == return_value
 
 

@@ -1,9 +1,9 @@
-from exchange_processors.models import GetAccount
+from src.exchange_processors.models import GetAccount
 import unittest
 from decimal import Decimal
 from unittest import mock
-from exchange_processors.binance.binance_exchange_processor import BinanceExchangeProcessor
-from exchange_processors.binance.binance_client import BinanceClient
+from src.exchange_processors.binance.binance_exchange_processor import BinanceExchangeProcessor
+from src.clients.binance_main_client.binance_client import BinanceClient
 from tests.data import json_get_account_200,json_get_account_400, json_get_account_401, json_get_candles, json_place_order
 
 
@@ -22,8 +22,8 @@ class BinanceExchProcessorTest(unittest.TestCase):
         assert hasattr(client_binance, 'path_to_account') == True
         assert client_binance.__getattribute__('timestamp') == 0
 
-    @mock.patch('http_client.client.HTTPClient.request')
-    @mock.patch('exchange_processors.binance.binance_client.BinanceClient.get_signature')
+    @mock.patch('src.clients.http_client.HTTPClient.request')
+    @mock.patch('src.clients.binance_main_client.binance_client.BinanceClient.get_signature')
     @mock.patch('time.time')
     def test_binance_get_account(self, mock_time, mock_signature, mock_request):
         mock_time.return_value = '0'
@@ -58,7 +58,7 @@ class BinanceExchProcessorTest(unittest.TestCase):
         with self.assertRaises(KeyError):
             client_binance.get_account()
 
-    @mock.patch('http_client.client.HTTPClient.request')
+    @mock.patch('src.clients.http_client.HTTPClient.request')
     def test_show_candles(self, mock_request):
         return_value = {'symbol': 'BTCUSDT', 'price': '35734.9'}
         symbol = 'BTCUSDT'
@@ -78,8 +78,8 @@ class BinanceExchProcessorTest(unittest.TestCase):
 
 
     @mock.patch('time.time')
-    @mock.patch('http_client.client.HTTPClient.request')
-    @mock.patch('exchange_processors.binance.binance_client.BinanceClient.get_signature')
+    @mock.patch('src.clients.http_client.HTTPClient.request')
+    @mock.patch('src.clients.binance_main_client.binance_client.BinanceClient.get_signature')
     def test_place_order(self, mock_get_signature, mock_request, mock_time):
         signature_return_value = 'a06452c5cfb3360c6f23291df33024bd6eaec7618ac2343a1b3b3a31ebe17f90'
         mock_time.return_value = '0'

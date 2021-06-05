@@ -1,4 +1,4 @@
-from http_client.client import HTTPClient
+from src.clients.http_client import HTTPClient
 import hmac
 from urllib.parse import urlencode
 import hashlib

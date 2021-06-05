@@ -1,6 +1,5 @@
 from unittest import mock
-
-from exchange_processors.bitfinex.bitfinex_client import BitfinexClient
+from src.clients.bitfinex_main_client.bitfinex_client import BitfinexClient
 
 def test_bitfinex_client():
 
@@ -31,7 +30,7 @@ def test_get_signature():
     data = b'InRlc3Rfc2lnbmF0dXJlIg=='
     assert client.get_signature(data) == return_value_signature
 
-@mock.patch('exchange_processors.bitfinex.bitfinex_client.BitfinexClient.get_signature')
+@mock.patch('src.clients.bitfinex_main_client.bitfinex_client.BitfinexClient.get_signature')
 def test_update_headers(mock_signature):
     client = BitfinexClient(
             BASE_PATH='test_base_patch',

@@ -1,4 +1,4 @@
-from exchange_processors.main_client import CryptoExchangeProcessor
+from src.exchange_processors.exchange_processor import CryptoExchangeProcessor
 
 
 class BittrexExchangeProcessor(CryptoExchangeProcessor):

@@ -1,4 +1,4 @@
-from http_client.client import HTTPClient
+from src.clients.http_client import HTTPClient
 import hmac
 import hashlib
 import base64

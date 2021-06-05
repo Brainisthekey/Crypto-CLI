@@ -1,8 +1,8 @@
 from decimal import Decimal
 from enum import Enum
 from abc import ABC, abstractmethod
-from http_client.client import HTTPClient
-from exchange_processors.models import ShowCandles
+from src.clients.http_client import HTTPClient
+from src.exchange_processors.models import ShowCandles
 
 
 class CryptoExchangeProcessor(ABC):

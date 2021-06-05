@@ -1,7 +1,8 @@
-from exchange_processors.models import ShowCandles
+from src.exchange_processors.models import ShowCandles
 import time
-from exchange_processors.bitfinex.bitfinex_client import BitfinexClient
-from exchange_processors.main_client import CryptoExchangeProcessor
+from src.clients.bitfinex_main_client.bitfinex_client import BitfinexClient
+from src.exchange_processors.exchange_processor import CryptoExchangeProcessor
+
 
 
 
