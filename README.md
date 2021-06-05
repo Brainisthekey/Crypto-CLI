@@ -1,12 +1,12 @@
 # CryptoCLI
 
-Simple CLI application written in Python allowing users to perform operations on [Binance](https://binance.com/) CryptoCurrency Exchange directly from CLI.
+Simple CLI application written in Python allowing users to perform operations on [Binance](https://binance.com/), [Bitfinex](https://www.bitfinex.com/) CryptoCurrency Exchange directly from CLI.
 
 ## v0.1 scope
 
 ### Functional requirements
 
-As a **user** I want to: 
+As a **user** you can do: 
 - configure CLI application
   - set credentials of the exchange (apiKey, secretKey)
   - set default timeframe (e.g 1D, 4H, 1H)
