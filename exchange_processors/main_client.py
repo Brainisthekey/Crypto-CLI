@@ -1,7 +1,7 @@
 from decimal import Decimal
 from enum import Enum
 from abc import ABC, abstractmethod
-from HTTPclient.client import HTTPClient
+from http_client.client import HTTPClient
 
 
 class CryptoExchangeProcessor(ABC):
@@ -42,6 +42,14 @@ class CryptoExchangeProcessor(ABC):
         timestamp: int = None,
     ):
         pass
+    @abstractmethod
+    def get_account(
+        self,
+        timestamp,
+        recvWindow=None
+    ):
+        pass
+
 
     # What is the type LONG ?
     # How i can user Enum type?
