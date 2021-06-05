@@ -65,8 +65,8 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
         ).json()
         for balances in get_account_response_json['balances']:
             for key, val in balances.items():
-                # not in tuple(....)
-                if key == 'free' and val != '0.00000000' and val != '0.00':
+                zero_values = ('0.00000000','0.00')
+                if key == 'free' and val not in zero_values:
                     balances_binance[balances['asset']] = balances['free']
         return GetAccount(balances = balances_binance) 
 
