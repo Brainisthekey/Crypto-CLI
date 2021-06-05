@@ -70,8 +70,8 @@ class BinanceExchangeProcessor(CryptoExchangeProcessor):
                     balances_binance[balances['asset']] = balances['free']
         return GetAccount(balances = balances_binance) 
 
-api_key = '7wIVSwRr656l2K1bxt9JML7SBAt61Y1Vx96w8TULoicc3u0TczZz1SWXzHZUC467'
-secret_key = '0F5qtVFgc4sbHwBa76ECgI54zEtXWXaUGyv5lvQ3wJReftzfgE5ymGTy88q5DCxa'
+api_key = ''
+secret_key = ''
 
 client = BinanceExchangeProcessor(client=BinanceClient(
                                                         apiKey=api_key,
@@ -79,6 +79,6 @@ client = BinanceExchangeProcessor(client=BinanceClient(
                                                         suported_codes=[200, 400, 401]
 ))
 
-print(client.get_account())
+#print(client.get_account())
 #print(client.place_order(symbol='BTCUSDT', side='SELL', type='MARKET', quantity=Decimal('0.3')).json())
 #print(client.show_candles(symbol='BTCUSDT', interval='1h').dict())
