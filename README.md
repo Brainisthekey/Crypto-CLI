@@ -41,5 +41,5 @@ The application can be installed from [GitLab PyPI private package registry](htt
 
 ## Additional information
 
-[these](https://www.conventionalcommits.org/en/v1.0.0/#summary) is used to commit message guidelines.
+[These](https://www.conventionalcommits.org/en/v1.0.0/#summary) is used to commit message guidelines.
 
